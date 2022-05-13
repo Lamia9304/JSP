@@ -63,13 +63,18 @@ boardDAO.updateReadcount(num);
 BoardDTO boardDTO=boardDAO.getBoard(num);
 %>
 <article>
-<h1>Notice Content</h1>
+<h1>갤러리 Notice Content</h1>
 <table id="notice">
 <tr><td>글번호</td><td><%=boardDTO.getNum() %></td>
     <td>등록일</td><td><%=boardDTO.getDate() %></td></tr>
 <tr><td>글쓴이</td><td><%=boardDTO.getName() %></td>
     <td>조회수</td><td><%=boardDTO.getReadcount() %></td></tr>
 <tr><td>글제목</td><td colspan="3"><%=boardDTO.getSubject() %></td></tr>
+<tr><td>첨부파일이미지</td>
+    <td colspan="3">
+<%--     <a href="../upload/<%=boardDTO.getFile() %>" download><%=boardDTO.getFile() %></a> --%>
+		<img src="../upload/<%=boardDTO.getFile()%>">
+    </td></tr>
 <tr><td>글내용</td><td colspan="3"><%=boardDTO.getContent() %></td></tr>
 </table>
 <div id="table_search">
@@ -82,15 +87,13 @@ if(id!=null){
 	// 로그인 글쓴이 비교
 	if(id.equals(boardDTO.getName())){
 		%>
-<input type="button" value="글수정" class="btn" onclick="location.href='update.jsp?num=<%=boardDTO.getNum()%>'"/>
-<input type="button" value="글삭제" class="btn" onclick="location.href='delete.jsp?num=<%=boardDTO.getNum()%>'"/>		
+<input type="button" value="글수정" class="btn" onclick="location.href='gupdate.jsp?num=<%=boardDTO.getNum()%>'"/>
+<input type="button" value="글삭제" class="btn" onclick="location.href='gdelete.jsp?num=<%=boardDTO.getNum()%>'"/>		
 		<%
 	}
 }
 %>
-
-<textarea>d</textarea>
-<input type="button" value="글목록" class="btn" onclick="location.href='notice.jsp'"/>
+<input type="button" value="글목록" class="btn" onclick="location.href='gnotice.jsp'"/>
 </div>
 <div class="clear"></div>
 </article>

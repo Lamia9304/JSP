@@ -88,8 +88,6 @@ if(id!=null){
 	}
 }
 %>
-
-<textarea>d</textarea>
 <input type="button" value="글목록" class="btn" onclick="location.href='notice.jsp'"/>
 </div>
 <div class="clear"></div>
