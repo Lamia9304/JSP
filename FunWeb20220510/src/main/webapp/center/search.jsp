@@ -56,6 +56,9 @@
 <!-- 왼쪽메뉴 -->
 <!-- 게시판 -->
 <%
+request.setCharacterEncoding("utf-8");
+String searchField=request.getParameter("searchField");
+String searchText=request.getParameter("searchText");
 // BoardDAO 객체 생성
 BoardDAO boardDAO=new BoardDAO();
 // 한페이지에 보여줄 글개수 지정
@@ -92,7 +95,7 @@ int endRow=startRow+pageSize-1;
 // List<BoardDTO> boardList=boardDAO.getBoardList();
 // List<BoardDTO> boardList=boardDAO.getBoardList(시작하는 행번호,한페이지 보여줄글개수);
 // select * from board order by num desc limit 시작하는 행번호-1,한페이지 보여줄글개수
-List<BoardDTO> boardList=boardDAO.getBoardList(startRow, pageSize);
+List<BoardDTO> boardList=boardDAO.getSearch(searchField, searchText);
 
 //날짜 => 문자열(원하는 포맷) 변경
 SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");

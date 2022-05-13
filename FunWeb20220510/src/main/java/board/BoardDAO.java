@@ -170,6 +170,65 @@ public class BoardDAO {
 		return boardDTO;
 	}//
 	
+	public List<BoardDTO> getBoardList2(int pageSize) {
+		Connection con=null;
+		PreparedStatement  pstmt=null;
+		ResultSet rs=null;
+		// List 객체생성(BoardDTO 여러개를 담을수 있는 자바 배열형태의 내장객체)
+		// 처음에는 10개 기억장소 할당 => 11개 부터는 또다른 10개 기억장소 추가 할당
+		// List 배열내장객체 값을 저장 .add(DTO주소값) 순서대로 한칸씩 저장 
+		// 값을 가져올때 .get(순서) 배열 한칸에 있는 값을 가져오기
+		// 배열 크기 .size() 
+		
+		// 모든형을 배열에 저장 => 업캐스팅 데이터 저장
+//		List boardList=new ArrayList();
+		// BoardDTO 형만 배열에 저장 => 제네릭(Generic) : 데이터 타입 지정
+		List<BoardDTO> boardList=new ArrayList<BoardDTO>();
+		try {
+			// 1,2 디비연결 메서드 호출
+			con=getConnection();
+			// 3 sql select 게시판 전체 글 가져오기(최근글 위로 정렬=> 내림차순)
+//			String sql="select * from board order by num desc";
+//			String sql="select * from board order by num desc limit 시작하는 행번호-1,한페이지 보여줄글개수";
+			String sql="select * from board order by num desc limit ?";
+			pstmt=con.prepareStatement(sql);
+			
+			pstmt.setInt(1, pageSize);
+			// 4 실행 => 결과 저장
+			rs=pstmt.executeQuery();
+			// 5 while 결과 => 다음행 => 데이터 있으면 열접근
+			// => BoardDTO객체생성 set메서드호출 열데이터 저장
+			// => 배열 한칸에 게시판글 BoardDTO주소값을 저장  .add(DTO주소값)
+			while(rs.next()) {
+				//게시판 글 한개를 BoardDTO 저장
+				BoardDTO boardDTO=new BoardDTO();
+				boardDTO.setNum(rs.getInt("num"));
+				boardDTO.setPass(rs.getString("pass"));
+				boardDTO.setName(rs.getString("name"));
+				boardDTO.setSubject(rs.getString("subject"));
+				boardDTO.setContent(rs.getString("content"));
+				boardDTO.setReadcount(rs.getInt("readcount"));
+				boardDTO.setDate(rs.getTimestamp("date"));
+				//파일
+				boardDTO.setFile(rs.getString("file"));
+				
+				// => 배열 한칸에 게시판글 BoardDTO주소값을 저장  .add(DTO주소값)
+//				System.out.println(boardDTO);
+				boardList.add(boardDTO);
+			}
+			      
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			//마무리 기억장소 해제
+			if(rs!=null) try { rs.close(); } catch (Exception e2) {	}
+			if(pstmt!=null) try { pstmt.close(); } catch (Exception e2) {	}
+			if(con!=null) try { con.close(); } catch (Exception e2) {	}	
+		}
+		// List 배열내장객체 주소값을 리턴
+		return boardList;
+	}//
+	
 	// 리턴할형 없음 updateReadcount(int num)메서드 정의
 	public void updateReadcount(int num) {
 		Connection con=null;
@@ -274,6 +333,46 @@ public class BoardDAO {
 		}
 		return count;
 	}
+	
+	
+	public List<BoardDTO> getSearch(String searchField, String searchText){//특정한 리스트를 받아서 반환
+	      List<BoardDTO> list = new ArrayList<BoardDTO>();
+	      	Connection con=null;
+			PreparedStatement  pstmt=null;
+			ResultSet rs=null;
+			String SQL ="select * from board WHERE"+" "+searchField.trim();
+			System.out.println(SQL);
+	      try {
+	    	  con=getConnection();
+	    	 
+	    	  
+	            if(searchText != null && !searchText.equals("") ){
+	                SQL +=" LIKE'%"+searchText.trim()+"%' order by num desc";
+	            }
+	            
+	            System.out.println(SQL);
+	            pstmt=con.prepareStatement(SQL);
+				rs=pstmt.executeQuery();//select
+				
+	         while(rs.next()) {
+	        	BoardDTO boardDTO=new BoardDTO();
+	            boardDTO.setNum(rs.getInt("num"));
+				boardDTO.setPass(rs.getString("pass"));
+				boardDTO.setName(rs.getString("name"));
+				boardDTO.setSubject(rs.getString("subject"));
+				boardDTO.setContent(rs.getString("content"));
+				boardDTO.setReadcount(rs.getInt("readcount"));
+				boardDTO.setDate(rs.getTimestamp("date"));
+				//파일
+				boardDTO.setFile(rs.getString("file"));
+	            list.add(boardDTO); //list에 해당 인스턴스를 담는다.
+	         }         
+	      } catch(Exception e) {
+	         e.printStackTrace();
+	      }
+	      return list;//게시글 리스트 반환
+	   }
+
 	
 	
 }//클래스
