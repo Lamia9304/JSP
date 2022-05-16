@@ -45,14 +45,7 @@
 <!-- 메인이미지 -->
 
 <!-- 왼쪽메뉴 -->
-<nav id="sub_menu">
-<ul>
-<li><a href="../center/notice.jsp">Notice</a></li>
-<li><a href="#">Public News</a></li>
-<li><a href="../fcenter/fnotice.jsp">Driver Download</a></li>
-<li><a href="#">Service Policy</a></li>
-</ul>
-</nav>
+<jsp:include page="../inc/sub_menu.jsp"></jsp:include>
 <!-- 왼쪽메뉴 -->
 <!-- 게시판 -->
 <%
@@ -92,6 +85,7 @@ int endRow=startRow+pageSize-1;
 // List<BoardDTO> boardList=boardDAO.getBoardList();
 // List<BoardDTO> boardList=boardDAO.getBoardList(시작하는 행번호,한페이지 보여줄글개수);
 // select * from board order by num desc limit 시작하는 행번호-1,한페이지 보여줄글개수
+
 List<BoardDTO> boardList=boardDAO.getBoardList(startRow, pageSize);
 
 //날짜 => 문자열(원하는 포맷) 변경

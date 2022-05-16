@@ -125,7 +125,9 @@ quis ante......</dd>
   SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
   %>
 
-
+<div id="news_notice">
+<h3 class="brown">News &amp; Notice</h3>
+<table>
  <%
     // 배열크기 : boardList.size()
     for(int i=0;i<boardList.size();i++){
@@ -136,24 +138,17 @@ quis ante......</dd>
     	BoardDTO boardDTO=boardList.get(i);
     	%>
     	
- <div id="news_notice">
-<h3 class="brown">News &amp; Notice</h3>
-<table>
-   <tr><td class="contxt"><a href="#"><%=boardDTO.getSubject()%></a></td>
-    <td>2012.11.02</td></tr>
-<tr><td class="contxt"><a href="#">Vivans....</a></td>
-    <td>2012.11.02</td></tr>
-<tr><td class="contxt"><a href="#">Vivans....</a></td>
-    <td>2012.11.02</td></tr>
-<tr><td class="contxt"><a href="#">Vivans....</a></td>
-    <td>2012.11.02</td></tr>
-<tr><td class="contxt"><a href="#">Vivans....</a></td>
-    <td>2012.11.02</td></tr>
+ 
+
+   <tr><td class="contxt"><a href="../center/content.jsp?num=<%=boardDTO.getNum()%>"><%=boardDTO.getSubject()%></a></td>
+    <td><%=dateFormat.format(boardDTO.getDate()) %></td></tr>
+
+ 
     <% 
     	   	}
  %>
- </table>
-    
+
+</table> 
 
 
 

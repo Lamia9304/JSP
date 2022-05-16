@@ -21,8 +21,31 @@
 
  </script>
  <![endif]-->
+ 
+ <script type="text/javascript" src="../script/jquery-3.6.0.js"></script>
  <script type="text/javascript">
- function dupcheck() {
+ 
+ 
+ $(document).ready(function(){
+	//id"dup" 클릭했을 때 dupcheck2.jsp 페이지에 id="id" val 값을 가지고가서
+	//아이디 중복체크한 출력 결과를 가지고 가서 id="dupdiv"에 출력
+	
+	 $('#dup').click(function(){
+		 /* 	alert("클릭");	 */	
+			$.ajax({
+				url:'dupcheck2.jsp',
+				data:{'id':$('#id').val()},
+				success:function(rdata){
+					// id="iddiv"에 들고온 데이터 rdata를 내용 넣기
+					$('#dupdiv').html(rdata);
+				}
+			});
+			
+		});
+	
+ })
+ 
+/*  function dupcheck() {
 // 	alert("아이디 중복체크");
 	if(document.fr.id.value==""){
 		alert("아이디 입력하세요");
@@ -31,7 +54,10 @@
 	}
 	var id=document.fr.id.value;
 	window.open("dupcheck.jsp?id="+id,"win","width=500,height=300");
- }
+ } */
+ 
+ 
+ 
  </script>
 </head>
 <body>
@@ -58,9 +84,19 @@
 <form action="joinPro.jsp" id="join" method="post" name="fr">
 <fieldset>
 <legend>Basic Info</legend>
+
+
+
 <label>User ID</label>
-<input type="text" name="id" class="id">
-<input type="button" value="dup. check" class="dup" onclick="dupcheck()"><br>
+<input type="text" name="id" class="id" id="id">
+<!-- <input type="button" value="dup. check" class="dup" onclick="dupcheck()"><br> -->
+<input type="button" value="dup. check" class="dup" id="dup"><br>
+
+
+<label></label>
+<div id="dupdiv"></div><br>
+
+
 <label>Password</label>
 <input type="password" name="pass"><br>
 <label>Retype Password</label>
