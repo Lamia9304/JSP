@@ -45,6 +45,13 @@
 <article id="front">
 <div id="solution">
 <div id="hosting">
+
+
+
+
+
+
+
 <h3>Web Hosting Solution</h3>
 <p>Lorem impsun Lorem impsunLorem impsunLorem
  impsunLorem impsunLorem impsunLorem impsunLorem
@@ -64,27 +71,58 @@
 </div>
 </div>
 <div class="clear"></div>
+
+
+<%
+// BoardDAO 객체 생성
+ int h_pageSize=2;
+
+BoardDAO boardDAO=new BoardDAO();
+List<BoardDTO> boardList=boardDAO.getBoardList3(h_pageSize);
+
+%>
 <div id="sec_news">
-<h3><span class="orange">Security</span> News</h3>
+<h3><span class="orange">조회수</span> 게시글</h3>
+<% 
+
+    // 배열크기 : boardList.size()
+    for(int i=0;i<boardList.size();i++){
+    	//배열 한칸 데이터 가져올때 boardList.get()
+    	// 모든형 => 자식형 형변화(다운캐스팅)
+//     	BoardDTO boardDTO=(BoardDTO)boardList.get(i);
+    	// List<BoardDTO> 데이터 타입으로 가져오면 형변환없이 사용가능
+    	BoardDTO boardDTO=boardList.get(i);
+    	%>
+    	
+
+
 <dl>
-<dt>Vivamus id ligula....</dt>
-<dd>Proin quis ante Proin quis anteProin 
-quis anteProin quis anteProin quis anteProin 
-quis ante......</dd>
+<dt><%=boardDTO.getSubject() %></dt>
+<dd><%=boardDTO.getContent() %></dd>
 </dl>
 <dl>
-<dt>Vivamus id ligula....</dt>
-<dd>Proin quis ante Proin quis anteProin 
-quis anteProin quis anteProin quis anteProin 
-quis ante......</dd>
+
 </dl>
-</div>
+
+
+  
+
+ 
+    <% 
+    	   	}
+ %>
+ 
+ </div>
+
+
+
+
 
  <%
      
      
-  // BoardDAO 객체 생성
-  BoardDAO boardDAO=new BoardDAO();
+
+
   // 한페이지에 보여줄 글개수 지정
   int pageSize=5;
 
@@ -119,7 +157,7 @@ quis ante......</dd>
   // List<BoardDTO> boardList=boardDAO.getBoardList();
   // List<BoardDTO> boardList=boardDAO.getBoardList(시작하는 행번호,한페이지 보여줄글개수);
   // select * from board order by num desc limit 시작하는 행번호-1,한페이지 보여줄글개수
-  List<BoardDTO> boardList=boardDAO.getBoardList2(pageSize);
+  List<BoardDTO> boardList2=boardDAO.getBoardList2(pageSize);
 
   //날짜 => 문자열(원하는 포맷) 변경
   SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
@@ -130,12 +168,12 @@ quis ante......</dd>
 <table>
  <%
     // 배열크기 : boardList.size()
-    for(int i=0;i<boardList.size();i++){
+    for(int i=0;i<boardList2.size();i++){
     	//배열 한칸 데이터 가져올때 boardList.get()
     	// 모든형 => 자식형 형변화(다운캐스팅)
 //     	BoardDTO boardDTO=(BoardDTO)boardList.get(i);
     	// List<BoardDTO> 데이터 타입으로 가져오면 형변환없이 사용가능
-    	BoardDTO boardDTO=boardList.get(i);
+    	BoardDTO boardDTO=boardList2.get(i);
     	%>
     	
  

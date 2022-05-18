@@ -142,6 +142,12 @@ public class BoardDAO {
     return boardDTO;
   }
   
+  
+  
+  
+  
+  
+  
   public List<BoardDTO> getBoardList2(int pageSize) {
     Connection con = null;
     PreparedStatement pstmt = null;
@@ -183,6 +189,51 @@ public class BoardDAO {
     } 
     return boardList;
   }
+  
+  
+  
+  public List<BoardDTO> getBoardList3(int h_pageSize) {
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    List<BoardDTO> boardList = new ArrayList<>();
+	    try {
+	      con = getConnection();
+	      String sql = "select * from board order by readcount desc limit ?";
+	      pstmt = con.prepareStatement(sql);
+	      pstmt.setInt(1, h_pageSize);
+	      rs = pstmt.executeQuery();
+	      while (rs.next()) {
+	        BoardDTO boardDTO = new BoardDTO();
+	        boardDTO.setNum(rs.getInt("num"));
+	        boardDTO.setPass(rs.getString("pass"));
+	        boardDTO.setName(rs.getString("name"));
+	        boardDTO.setSubject(rs.getString("subject"));
+	        boardDTO.setContent(rs.getString("content"));
+	        boardDTO.setReadcount(rs.getInt("readcount"));
+	        boardDTO.setDate(rs.getTimestamp("date"));
+	        boardDTO.setFile(rs.getString("file"));
+	        boardList.add(boardDTO);
+	      } 
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	      System.out.println("d");
+	    } finally {
+	      if (rs != null)
+	        try {
+	          rs.close();
+	        } catch (Exception exception) {} 
+	      if (pstmt != null)
+	        try {
+	          pstmt.close();
+	        } catch (Exception exception) {} 
+	      if (con != null)
+	        try {
+	          con.close();
+	        } catch (Exception exception) {} 
+	    } 
+	    return boardList;
+	  }
   
   public void updateReadcount(int num) {
     Connection con = null;

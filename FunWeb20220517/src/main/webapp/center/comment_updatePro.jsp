@@ -13,13 +13,20 @@
 
 request.setCharacterEncoding("utf-8");
 
+
 String comment_num=(request.getParameter("num"));
+
+
+
+
+
 
 
 String referer = request.getHeader("REFERER");
 String content=request.getParameter("c_content");
 
 
+System.out.println(content);
 CommentDTO commentDTO=new CommentDTO();
 
 commentDTO.setComment_cont(content);

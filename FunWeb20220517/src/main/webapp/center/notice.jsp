@@ -54,6 +54,10 @@ BoardDAO boardDAO=new BoardDAO();
 // 한페이지에 보여줄 글개수 지정
 int pageSize=10;
 
+// 핫게시글에 보여질 글 개수 지정
+
+int h_pageSize=2;
+
 //http://localhost:8080/FunWeb/center/notice.jsp
 //http://localhost:8080/FunWeb/center/notice.jsp?pageNum=2
 // 페이지 번호 가져오기 
@@ -94,11 +98,11 @@ SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
 <article>
 <h1>게시판</h1>
 <table id="notice">
-<tr><th class="tno">No.</th>
-    <th class="ttitle">Title</th>
-    <th class="twrite">Writer</th>
-    <th class="tdate">Date</th>
-    <th class="tread">Read</th></tr>
+<tr><th class="tno">번호</th>
+    <th class="ttitle">제목</th>
+    <th class="twrite">글쓴이</th>
+    <th class="tdate">등록일</th>
+    <th class="tread">조회</th></tr>
     <%
     // 배열크기 : boardList.size()
     for(int i=0;i<boardList.size();i++){
@@ -128,7 +132,7 @@ SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy.MM.dd");
 								<option value="name">작성자</option>
 						</select>					
 <input type="text" name="searchText" class="input_box">
-<input type="submit" value="search" class="btn">
+<input type="submit" value="검색" class="btn">
 </div>
 </form>
 

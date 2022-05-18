@@ -20,6 +20,10 @@ $(document).ready(function(){
         alert("게시판을 이용하시려면 로그인하셔야 합니다.");
         location.href="../member/login.jsp";
     }
+	
+	
+	
+	
 });
 
 
@@ -109,7 +113,7 @@ List<CommentDTO> commentList=commentDAO.getCommentList(num);
 
 %>
 <article>
-<h1>Notice Content</h1>
+<h1>게시판</h1>
 <table id="notice">
 <tr><td>글번호</td><td><%=boardDTO.getNum() %></td>
     <td>등록일</td><td><%=boardDTO.getDate() %></td></tr>
@@ -158,21 +162,30 @@ List<CommentDTO> commentList=commentDAO.getCommentList(num);
     	
     	%>
     	
-    	<table id="notice">
-<tr><td>작성자</td><td><%=commentDTO.getComment_name()%></td>
-    <td>댓글번호</td><td><%=commentDTO.getComment_num() %></td></tr>
-<tr><td>내용</td><td><%=commentDTO.getComment_cont() %></td></tr>
-<tr><td>작성일자</td><td><%=commentDTO.getComment_date() %></td></tr>
+    	<table>
+<tr><td>작성자</td><td><%=commentDTO.getComment_name()%></td></tr>
+<tr>
+<td>내용</td><td><%=commentDTO.getComment_cont() %></td>
+<td>작성일자</td><td><%=commentDTO.getComment_date() %></td>
+<td>댓글번호</td><td><%=commentDTO.getComment_num() %></td>
+</tr>
 
+</table>
 <% 
 if(id!=null){
 	// 로그인 글쓴이 비교
 	if(id.equals(commentDTO.getComment_name())){
 		%>
-		
-<tr><td><input type="button"  class="btn"  value="댓글삭제" onclick="location.href='comment_deletePro.jsp?num=<%=commentDTO.getComment_num()%>'"/>	</td>
-<td><input type="button"  id="btn" class="btn"  value="댓글수정" onclick="location.href='comment_updatePro.jsp?num=<%=commentDTO.getComment_num()%>'"/></td><tr>
 
+<form method="post" name="content"  action="comment_updatePro.jsp?num=<%=commentDTO.getComment_num()%>">
+<table>	
+<tr>
+<td><input type="submit"  id="btn" class="btn"  value="댓글수정"></td>
+<td><a href="" onclick='show()'>수정</a>
+<td><a href="comment_deletePro.jsp?num=<%=commentDTO.getComment_num()%>" onclick='return confirm("삭제하시겠습니까?");'>삭제</a>	</td></tr>
+<tr><td><input type="text" name="c_content" size="30" style="height:50px;" value=<%=commentDTO.getComment_cont() %>></td></tr>
+</table>
+</form>
 
 		<%
 	}
@@ -183,8 +196,7 @@ if(id!=null){
 %>
 
 
-</table>
-
+	
 
 
 

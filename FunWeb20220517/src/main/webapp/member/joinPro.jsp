@@ -47,10 +47,27 @@ MemberDAO memberDAO=new MemberDAO();
 
 //  public void insertMember(MemberDTO 주소저장변수) 메서드 정의
 // MemberDAO 파일안에 있는 insertMember(MemberDTO 주소)메서드 호출
-memberDAO.insertMember(memberDTO);
+int result=memberDAO.insertMember(memberDTO);
 
-// login.jsp 이동
-response.sendRedirect("login.jsp");
+if (result==0){
+	// login.jsp 이동
+	response.sendRedirect("login.jsp");
+}
+
+else if(result==-1) {
+	%>
+	<script type="text/javascript">
+	alert("이미 있는 아이디입니다!");
+	history.back();
+</script>
+
+<% 
+}
+
+
+
+
+
 
 %>
 </body>

@@ -137,13 +137,13 @@ $(document).ready(function(){
 <!-- 왼쪽메뉴 -->
 <!-- 본문내용 -->
 <article>
-<h1>Join Us</h1>
+<h1>회원가입</h1>
 <form action="joinPro.jsp" id="join" method="post" name="fr">
 <fieldset>
 <legend>Basic Info</legend>
 <label>User ID</label>
 <input type="text" name="id" class="id" id="id">
-<input type="button" value="dup. check" class="dup" id="dup"><br>
+<input type="button" value="중복체크" class="dup" id="dup"><br>
 <label></label>
 <div id="dupdiv"></div><br>
 

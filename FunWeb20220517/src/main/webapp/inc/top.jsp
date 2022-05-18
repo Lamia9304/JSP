@@ -4,6 +4,8 @@
     
     
 <header>
+
+
 <%
 // 세션값 가져오기
 String id=(String)session.getAttribute("id");
@@ -30,9 +32,8 @@ if(id==null){
 <nav id="top_menu">
 <ul>
 	<li><a href="../main/main.jsp">HOME</a></li>
-	<li><a href="../company/welcome.jsp">회사소개</a></li>
-	<li><a href="#">SOLUTIONS</a></li>
-	<li><a href="../center/notice.jsp">게시판</a></li>
+	<li><a href="../company/welcome.jsp">INTRODUCE</a></li>
+	<li><a href="../center/notice.jsp">GALLERY</a></li>
 	<li><a href="#">CONTACT US</a></li>
 </ul>
 </nav>

@@ -56,7 +56,7 @@ boardDAO.updateReadcount(num);
 BoardDTO boardDTO=boardDAO.getBoard(num);
 %>
 <article>
-<h1>File Notice Content</h1>
+<h1>자료실</h1>
 <table id="notice">
 <tr><td>글번호</td><td><%=boardDTO.getNum() %></td>
     <td>등록일</td><td><%=boardDTO.getDate() %></td></tr>
