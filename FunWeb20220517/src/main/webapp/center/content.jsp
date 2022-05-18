@@ -134,7 +134,6 @@ List<CommentDTO> commentList=commentDAO.getCommentList(num);
 			
 				<td><input type="text" name="c_name" placeholder="닉네임" size="8" value="<%=id %>" readonly ></td>
 				<td><input type="text" name="c_content" placeholder="댓글 내용" size="30" style="height:50px;"></td>
-				<td><input type="password" name="c_pwd" placeholder="비밀번호" size="8"></td>
 				<td><input type="submit" value="등록" class="submit"></td>
 			</tr>
 			

@@ -33,15 +33,17 @@ public class MemberDAO {
 			//1,2 디비연결 메서드 호출
 			con=getConnection();
 			//3 sql insert구문 만들기
-			String sql="insert into member(id,pass,name,date,email,address,phone,mobile) values(?,?,?,now(),?,?,?,?)";
+			String sql="insert into member(id,pass,name,date,email,postcode,address,address2,phone,mobile) values(?,?,?,now(),?,?,?,?,?,?)";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, memberDTO.getId());
 			pstmt.setString(2, memberDTO.getPass());
 			pstmt.setString(3, memberDTO.getName());
 			pstmt.setString(4, memberDTO.getEmail());
-			pstmt.setString(5, memberDTO.getAddress());
-			pstmt.setString(6, memberDTO.getPhone());
-			pstmt.setString(7, memberDTO.getMobile());
+			pstmt.setString(5, memberDTO.getPostcode());
+			pstmt.setString(6, memberDTO.getAddress());
+			pstmt.setString(7, memberDTO.getAddress2());
+			pstmt.setString(8, memberDTO.getPhone());
+			pstmt.setString(9, memberDTO.getMobile());
 			//4 실행
 			pstmt.executeUpdate();
 		} catch (Exception e) {
@@ -136,14 +138,16 @@ public class MemberDAO {
 			//1,2 디비연결 메서드 호출
 			con=getConnection();
 			//3 sql insert구문 만들기
-			String sql="update member set name=?,email=?,address=?,phone=?,mobile=? where id=?";
+			String sql="update member set name=?,email=?,postcode=?,address=?,address2=?,phone=?,mobile=? where id=?";
 			pstmt=con.prepareStatement(sql);
 			pstmt.setString(1, updateDTO.getName());
 			pstmt.setString(2, updateDTO.getEmail());
-			pstmt.setString(3, updateDTO.getAddress());
-			pstmt.setString(4, updateDTO.getPhone());
-			pstmt.setString(5, updateDTO.getMobile());
-			pstmt.setString(6, updateDTO.getId());
+			pstmt.setString(3, updateDTO.getPostcode());
+			pstmt.setString(4, updateDTO.getAddress());
+			pstmt.setString(5, updateDTO.getAddress2());
+			pstmt.setString(6, updateDTO.getPhone());
+			pstmt.setString(7, updateDTO.getMobile());
+			pstmt.setString(8, updateDTO.getId());
 			//4 실행
 			pstmt.executeUpdate();
 		} catch (Exception e) {

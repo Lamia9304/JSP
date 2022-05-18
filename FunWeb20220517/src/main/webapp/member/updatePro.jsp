@@ -18,7 +18,9 @@ String id=request.getParameter("id");
 String pass=request.getParameter("pass");
 String name=request.getParameter("name");
 String email=request.getParameter("email");
+String postcode=request.getParameter("postcode");
 String address=request.getParameter("address");
+String address2=request.getParameter("address2");
 String phone=request.getParameter("phone");
 String mobile=request.getParameter("mobile");
 
@@ -39,7 +41,9 @@ updateDTO.setId(id);
 updateDTO.setPass(pass);
 updateDTO.setName(name);
 updateDTO.setEmail(email);
+updateDTO.setPostcode(postcode);
 updateDTO.setAddress(address);
+updateDTO.setAddress2(address2);
 updateDTO.setPhone(phone);
 updateDTO.setMobile(mobile);
 //public void updateMember(MemberDTO 주소저장변수) 메서드 정의

@@ -21,19 +21,102 @@
 
  </script>
  <![endif]-->
+ <script type="text/javascript" src="../script/jquery-3.6.0.js"></script>
  <script type="text/javascript">
- function dupcheck() {
-// 	alert("아이디 중복체크");
-	if(document.fr.id.value==""){
-		alert("아이디 입력하세요");
-		document.fr.id.focus();
-		return;
-	}
-	var id=document.fr.id.value;
-	window.open("dupcheck.jsp?id="+id,"win","width=500,height=300");
- }
+ 
+ 
+ 
+ 
+ 
+ 	$(document).ready(function(){
+ 		//id="join" submit() 이벤트
+ 		$('#join').submit(function(){
+//  			alert("이벤트");
+			if($('#id').val()==""){
+				alert("아이디 입력하세요");
+				$('#id').focus();
+				return false;
+			}
+ 			// pass  pass2  name email email2
+			if($('#pass').val()==""){
+				alert("비밀번호 입력하세요");
+				$('#pass').focus();
+				return false;
+			}
+			if($('#pass2').val()==""){
+				alert("비밀번호 확인 입력하세요");
+				$('#pass2').focus();
+				return false;
+			}
+			if($('#pass').val()!=$('#pass2').val()){
+				alert("비밀번호 일치 확인하세요");
+				$('#pass2').focus();
+				return false;
+			}
+			if($('#name').val()==""){
+				alert("이름 입력하세요");
+				$('#name').focus();
+				return false;
+			}
+			if($('#email').val()==""){
+				alert("이메일 입력하세요");
+				$('#email').focus();
+				return false;
+			}
+			if($('#email2').val()==""){
+				alert("이메일 확인 입력하세요");
+				$('#email2').focus();
+				return false;
+			}
+			
+			
+			/* if($('#email').val()!=$('#email2').val()){
+				alert("이메일 일치 확인하세요");
+				$('#email2').focus();
+				return false;
+			} */
+			
+ 		});
+ 		
+ 		
+
+ 		
+ 	});
+ 
+ 	
+ 	
+		 
  </script>
-</head>
+ 
+ <script type="text/javascript">
+//  function dupcheck() {
+// // 	alert("아이디 중복체크");
+// 	if(document.fr.id.value==""){
+// 		alert("아이디 입력하세요");
+// 		document.fr.id.focus();
+// 		return;
+// 	}
+// 	var id=document.fr.id.value;
+// 	window.open("dupcheck.jsp?id="+id,"win","width=500,height=300");
+//  }
+
+$(document).ready(function(){
+	// id="dup" 클릭했을때  dupcheck2.jsp 페이지에 id="id" val() 값을 가지고 가서
+	// 아이디 중복체크한 출력결과를 가져와서 id="dupdiv"에 출력
+	$('#dup').click(function(){
+// 		alert("클릭");
+		$.ajax({
+			url:'dupcheck2.jsp',
+			data:{'id':$('#id').val()},
+			success:function(rdata){
+				$('#dupdiv').html(rdata);
+			}
+		});
+	});
+});
+ 
+ </script>
+
 <body>
 <div id="wrap">
 <!-- 헤더들어가는 곳 -->
@@ -59,18 +142,21 @@
 <fieldset>
 <legend>Basic Info</legend>
 <label>User ID</label>
-<input type="text" name="id" class="id">
-<input type="button" value="dup. check" class="dup" onclick="dupcheck()"><br>
+<input type="text" name="id" class="id" id="id">
+<input type="button" value="dup. check" class="dup" id="dup"><br>
+<label></label>
+<div id="dupdiv"></div><br>
+
 <label>Password</label>
-<input type="password" name="pass"><br>
+<input type="password" name="pass" id="pass"><br>
 <label>Retype Password</label>
-<input type="password" name="pass2"><br>
+<input type="password" name="pass2" id="pass2"><br>
 <label>Name</label>
-<input type="text" name="name"><br>
+<input type="text" name="name" id="name"><br>
 <label>E-Mail</label>
-<input type="email" name="email"><br>
-<label>Retype E-Mail</label>
-<input type="email" name="email2"><br>
+<input type="email" name="email" id="email"><br>
+<label>Retype E-Mail</label> 
+<input type="email" name="email2" id=""><br>
 </fieldset>
 
 <fieldset>

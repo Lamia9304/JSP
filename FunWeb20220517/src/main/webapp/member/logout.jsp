@@ -13,7 +13,7 @@ session.invalidate();
 //"로그아웃" 메시지  main.jsp 이동
 %>
 <script type="text/javascript">
-	alert("로그아웃");
+	alert("로그아웃 되었습니다.");
 	location.href="../main/main.jsp";
 </script>
 </body>

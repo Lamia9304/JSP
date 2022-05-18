@@ -1,4 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+	<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -253,10 +253,10 @@
             <span>HTML, CSS, JavaScript, Json</span>
           </div>
         </a>
-        <a href="" class="project" data-type="back-end">
+        <a href="https://github.com/Lamia9304/JSP" class="project" data-type="back-end">
           <img class="project__img" src="../imgs/projects/project4.png" alt="" />
           <div class="project__description">
-            <h3>Project</h3>
+            <h3>JSP 게시판</h3>
             <span>Explanation</span>
           </div>
         </a>

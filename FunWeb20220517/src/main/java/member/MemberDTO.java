@@ -11,9 +11,13 @@ public class MemberDTO {
   
   private Timestamp date;
   
+  
+  private String postcode;
+  
   private String email;
   
   private String address;
+  private String address2;
   
   private String phone;
   
@@ -47,7 +51,23 @@ public class MemberDTO {
     return this.date;
   }
   
-  public void setDate(Timestamp date) {
+  public String getPostcode() {
+	return postcode;
+}
+
+public void setPostcode(String postcode) {
+	this.postcode = postcode;
+}
+
+public String getAddress2() {
+	return address2;
+}
+
+public void setAddress2(String address2) {
+	this.address2 = address2;
+}
+
+public void setDate(Timestamp date) {
     this.date = date;
   }
   

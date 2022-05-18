@@ -18,7 +18,9 @@ String id=request.getParameter("id");
 String pass=request.getParameter("pass");
 String name=request.getParameter("name");
 String email=request.getParameter("email");
+String postcode=request.getParameter("postcode");
 String address=request.getParameter("address");
+String address2=request.getParameter("address2");
 String phone=request.getParameter("phone");
 String mobile=request.getParameter("mobile");
 
@@ -33,7 +35,9 @@ memberDTO.setId(id);
 memberDTO.setPass(pass);
 memberDTO.setName(name);
 memberDTO.setEmail(email);
+memberDTO.setPostcode(postcode);
 memberDTO.setAddress(address);
+memberDTO.setAddress2(address2);
 memberDTO.setPhone(phone);
 memberDTO.setMobile(mobile);
 

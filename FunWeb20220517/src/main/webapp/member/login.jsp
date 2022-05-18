@@ -21,6 +21,47 @@
 
  </script>
  <![endif]-->
+ 
+  <script type="text/javascript" src="../script/jquery-3.6.0.js"></script>
+ <script type="text/javascript">
+ 
+ 
+ 
+ 
+ 
+ 	$(document).ready(function(){
+ 		//id="login" submit() 이벤트
+ 		$('#join').submit(function(){
+//  			alert("이벤트");
+			if($('#id').val()==""){
+				alert("아이디 입력하세요");
+				$('#id').focus();
+				return false;
+			}
+ 			// pass  pass2  name email email2
+			if($('#pass').val()==""){
+				alert("비밀번호 입력하세요");
+				$('#pass').focus();
+				return false;
+			}
+			
+ 		});
+ 		
+ 		
+
+ 		
+ 	});
+ 
+ 	
+ 	
+		 
+ </script>
+ 
+ 
+ 
+ 
+ 
+ 
 </head>
 <body>
 <div id="wrap">
@@ -47,13 +88,14 @@
 <fieldset>
 <legend>Login Info</legend>
 <label>User ID</label>
-<input type="text" name="id"><br>
+<input type="text" name="id" id="id"><br>
 <label>Password</label>
-<input type="password" name="pass"><br>
+<input type="password" name="pass" id="pass"><br>
 </fieldset>
 <div class="clear"></div>
 <div id="buttons">
 <input type="submit" value="Submit" class="submit">
+<input type="button" value="join" class="submit" onclick="location.href='join.jsp;'">
 <input type="reset" value="Cancel" class="cancel">
 </div>
 </form>
