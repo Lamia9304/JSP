@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../css/default.css" rel="stylesheet" type="text/css">
-<link href="../css/subpage.css" rel="stylesheet" type="text/css">
+<link href="./css/default.css" rel="stylesheet" type="text/css">
+<link href="./css/subpage.css" rel="stylesheet" type="text/css">
 
 <!--[if lt IE 9]>
 <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js" type="text/javascript"></script>
@@ -48,7 +48,7 @@
 <!-- 내용 -->
 <article>
 <h1>Welcome</h1>
-<figure class="ceo"><img src="../images/company/CEO.jpg" width="196" height="226" 
+<figure class="ceo"><img src="./images/company/CEO.jpg" width="196" height="226" 
 alt="CEO"><figcaption>Fun Web CEO Michael</figcaption>
 </figure>
 <p>Lorem ipsum ipsum dolor...

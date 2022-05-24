@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class MemberController extends HttpServlet{
 	//서블릿(처리담당자) 파일 상속 => 주소매핑
@@ -60,7 +61,49 @@ public class MemberController extends HttpServlet{
 			//login.me
 			RequestDispatcher dispatcher=request.getRequestDispatcher("member/login.jsp");
 			dispatcher.forward(request, response);
-		}
+		}else if(path.equals("/loginPro.me")){
+			System.out.println("/loginPro.me");
+			//디비 로그인 //세션값 생성
+			// 세션 객체 생성 
+			HttpSession session =request.getSession();
+			//세션값 저장
+			session.setAttribute("id", "kim");
+			
+			
+			
+			// 주소가 바뀌면서 이동 /main.me
+			response.sendRedirect("main.me");
+			
+		
+		}else if(path.equals("/main.me")) {
+			// main/main.jsp
+			
+			RequestDispatcher dispatcher=request.getRequestDispatcher("main/main.jsp");
+			dispatcher.forward(request, response);
+			}else if(path.equals("/welcome.me")) {
+			//company/welcome.jsp
+				
+				RequestDispatcher dispatcher=request.getRequestDispatcher("company/welcome.jsp");
+				dispatcher.forward(request, response);
+			}else if(path.equals("/logout.me")) {
+				
+				HttpSession session =request.getSession();
+				session.invalidate();
+				response.sendRedirect("main.me");
+				
+			}else if(path.equals("/update.me")) {
+				
+				RequestDispatcher dispatcher=request.getRequestDispatcher("memeber/update.jsp");
+				dispatcher.forward(request, response);
+				
+			}else if(path.equals("/updatePro.me")) {
+// 				updatePro.me 가상주소 =>DB처리 => main.me 이동
+				// 주소가 바뀌면서 이동 main.me
+				
+				response.sendRedirect("/main.me");
+				
+			}
+		
 	}
 
 	

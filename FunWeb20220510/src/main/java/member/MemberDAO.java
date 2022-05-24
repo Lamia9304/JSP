@@ -24,7 +24,7 @@ public class MemberDAO {
 	}
 	
 	//  public void insertMember(MemberDTO 주소저장변수) 메서드 정의
-	public void insertMember(MemberDTO memberDTO) {
+	public int insertMember(MemberDTO memberDTO) {
 		Connection con=null;
 		PreparedStatement  pstmt=null;
 		try {
@@ -42,8 +42,10 @@ public class MemberDAO {
 			pstmt.setString(7, memberDTO.getMobile());
 			//4 실행
 			pstmt.executeUpdate();
+			return 0;
 		} catch (Exception e) {
 			e.printStackTrace();
+			return -2;
 		}finally {
 			//마무리 기억장소 해제
 			if(pstmt!=null) try { pstmt.close(); } catch (Exception e2) {	}
