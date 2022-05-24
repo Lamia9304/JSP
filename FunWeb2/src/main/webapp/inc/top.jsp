@@ -29,7 +29,7 @@ if(id==null){
 	<li><a href="main.me">HOME</a></li>
 	<li><a href="welcome.me">회사소개</a></li>
 	<li><a href="#">SOLUTIONS</a></li>
-	<li><a href="write.bo">게시판</a></li>
+	<li><a href="notice.bo">게시판</a></li>
 	<li><a href="#">CONTACT US</a></li>
 </ul>
 </nav>

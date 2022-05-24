@@ -93,7 +93,7 @@ public class MemberController extends HttpServlet{
 				
 			}else if(path.equals("/update.me")) {
 				
-				RequestDispatcher dispatcher=request.getRequestDispatcher("memeber/update.jsp");
+				RequestDispatcher dispatcher=request.getRequestDispatcher("member/update.jsp");
 				dispatcher.forward(request, response);
 				
 			}else if(path.equals("/updatePro.me")) {
