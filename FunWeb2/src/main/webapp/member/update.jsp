@@ -1,5 +1,4 @@
-<%@page import="member.MemberDAO"%>
-<%@page import="member.MemberDTO"%>
+<%@page import="com.itwillbs.domain.MemberDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -46,11 +45,14 @@
 <%
 // String id = 세션값 가져오기
 String id=(String)session.getAttribute("id");
-// MemberDAO 객체생성
-MemberDAO memberDAO=new MemberDAO();
+
+
 // public 리턴할형 MemberDTO 함수이름 getMember(String id)  메서드 정의
+
 // MemberDTO memberDTO =  getMember(id) 메서드 호출
-MemberDTO memberDTO=memberDAO.getMember(id);
+
+MemberDTO memberDTO=(MemberDTO)request.getAttribute("memberDTO");
+
 %>
 <article>
 <h1>Update Us</h1>

@@ -1,5 +1,3 @@
-<%@page import="board.BoardDTO"%>
-<%@page import="board.BoardDAO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -47,32 +45,30 @@
 <!-- 왼쪽메뉴 -->
 <!-- 게시판 -->
 <%
-// content.jsp?num=1
-// request 에서 num 가져오기 
-int num=Integer.parseInt(request.getParameter("num"));
-// BoardDAO 객체생성
-BoardDAO boardDAO=new BoardDAO();
-// 게시판 글 조회수 1 증가
-// 리턴할형 없음 updateReadcount(int num)메서드 정의 
-// update board set readcount = readcount +1 where num=? 
-// updateReadcount(num)메서드 호출
-boardDAO.updateReadcount(num);
+// // content.jsp?num=1
+// // request 에서 num 가져오기 
+// int num=Integer.parseInt(request.getParameter("num"));
+// // BoardDAO 객체생성
+// BoardDAO boardDAO=new BoardDAO();
+// // 게시판 글 조회수 1 증가
+// // 리턴할형 없음 updateReadcount(int num)메서드 정의 
+// // update board set readcount = readcount +1 where num=? 
+// // updateReadcount(num)메서드 호출
+// boardDAO.updateReadcount(num);
 
-// 리턴할형 BoardDTO  getBoard(int num)메서드 정의 
-// BoardDTO boardDTO = getBoard(num) 메서드 호출
-
-
-BoardDTO boardDTO=boardDAO.getBoard(num);
+// // 리턴할형 BoardDTO  getBoard(int num)메서드 정의 
+// // BoardDTO boardDTO = getBoard(num) 메서드 호출
+// BoardDTO boardDTO=boardDAO.getBoard(num);
 %>
 <article>
 <h1>Notice Content</h1>
 <table id="notice">
-<tr><td>글번호</td><td><%=boardDTO.getNum() %></td>
-    <td>등록일</td><td><%=boardDTO.getDate() %></td></tr>
-<tr><td>글쓴이</td><td><%=boardDTO.getName() %></td>
-    <td>조회수</td><td><%=boardDTO.getReadcount() %></td></tr>
-<tr><td>글제목</td><td colspan="3"><%=boardDTO.getSubject() %></td></tr>
-<tr><td>글내용</td><td colspan="3"><%=boardDTO.getContent() %></td></tr>
+<tr><td>글번호</td><td><%//=boardDTO.getNum() %></td>
+    <td>등록일</td><td><%//=boardDTO.getDate() %></td></tr>
+<tr><td>글쓴이</td><td><%//=boardDTO.getName() %></td>
+    <td>조회수</td><td><%//=boardDTO.getReadcount() %></td></tr>
+<tr><td>글제목</td><td colspan="3"><%//=boardDTO.getSubject() %></td></tr>
+<tr><td>글내용</td><td colspan="3"><%//=boardDTO.getContent() %></td></tr>
 </table>
 <div id="table_search">
 <%
@@ -80,15 +76,15 @@ BoardDTO boardDTO=boardDAO.getBoard(num);
 // String id = 세션값 가져오기
 String id=(String)session.getAttribute("id");
 // 세션값 null 이 아니면 
-if(id!=null){
+// if(id!=null){
 	// 로그인 글쓴이 비교
-	if(id.equals(boardDTO.getName())){
+// 	if(id.equals(boardDTO.getName())){
 		%>
-<input type="button" value="글수정" class="btn" onclick="location.href='update.jsp?num=<%=boardDTO.getNum()%>'"/>
-<input type="button" value="글삭제" class="btn" onclick="location.href='delete.jsp?num=<%=boardDTO.getNum()%>'"/>		
+<input type="button" value="글수정" class="btn" onclick="location.href='update.jsp?num=<%//=boardDTO.getNum()%>'"/>
+<input type="button" value="글삭제" class="btn" onclick="location.href='delete.jsp?num=<%//=boardDTO.getNum()%>'"/>		
 		<%
-	}
-}
+// 	}
+// }
 %>
 <input type="button" value="글목록" class="btn" onclick="location.href='notice.jsp'"/>
 </div>

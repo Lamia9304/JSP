@@ -1,6 +1,7 @@
 package com.itwillbs.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,66 +9,131 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class BoardController extends HttpServlet{
+import com.itwillbs.domain.BoardDTO;
+import com.itwillbs.service.BoardService;
 
-	// 서블릿 상속 =>  서블릿 파일이 됨
-	// 서블릿 doGet()  doPost() ... 메서드 서블릿 호출
-	// doGet() doPost() 메서드 재정의 (메서드 오버라이딩)
+public class BoardController extends HttpServlet{
+	// 서블릿 상속 => 서블릿 파일이 됨
+	// 서블릿 doGet() doPost() ... 메서드 호출
+	// doGet() doPost() 메서드 재정의(메서드 오버라이딩)
 	
-	
-protected void doPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPro(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("BoardController doPro()");
-		
 		// 가상주소 => 실페이지 연결 주소매핑
 		
-		
-		// 가상주소 뽑아오기 
-		// URL http://localhost:8080/FunWeb2/join.me
-		// URI  /FunWeb2/write.bo =>8부터 끝까지 뽑아오기 
+		// 가상주소 뽑아오기
+		// URL   http://localhost:8080/FunWeb2/write.bo
+		// URI       /FunWeb2/write.bo => 8부터 끝까지 뽑아오기
 		// 프로젝트경로 /FunWeb2 => 8
-		// 찾는 주소   /join.me
-		
+		// 찾는 주소   /write.bo
 		String uri=request.getRequestURI();
 		System.out.println(uri);
 		String projectPath=request.getContextPath();
 		System.out.println(projectPath);
-		String path= uri.substring(projectPath.length());
-		
+		String path=uri.substring(projectPath.length());
 		System.out.println(path);
+		
 		if(path.equals("/write.bo")) {
+			System.out.println("/write.bo 매핑");
 //			/write.bo => center/write.jsp 매핑
+			
+			// 1. 주소줄에 보이면서(바뀌면서) 이동방식(하이퍼링크,location.href,sendRedirect())
+//			response.sendRedirect("center/write.jsp");
+			
+			// 2. 주소줄에 안보이면서(안 바뀌면서, request모든내용을 가지고 감) 이동방식(forward액션)
 			RequestDispatcher dispatcher=request.getRequestDispatcher("center/write.jsp");
 			dispatcher.forward(request, response);
 		}else if(path.equals("/writePro.bo")) {
 			System.out.println("/writePro.bo 매핑");
 			//디비파일
-			//notice.me 주소가 바뀌면서 이동 
-			response.sendRedirect("notice.bo");
+			// request한글처리
+			request.setCharacterEncoding("utf-8");
+			// pass name subject content 파라미터 가져오기
+			String name=request.getParameter("name");
+			String pass=request.getParameter("pass");
+			String subject=request.getParameter("subject");
+			String content=request.getParameter("content");
+//			int readcount=0;
+			// BoardDTO 객체생성
+			BoardDTO boardDTO=new BoardDTO();
+			// set메서드 호출 파라미터값 저장 <= pass name subject content readcount
+			boardDTO.setName(name);
+			boardDTO.setPass(pass);
+			boardDTO.setSubject(subject);
+			boardDTO.setContent(content);
+//			boardDTO.setReadcount(readcount);
 			
+			// 패키지 com.itwillbs.service 파일이름 BoardService 
+			// 리턴할형 없음 insertBoard(BoardDTO boardDTO) 메서드 정의
+//			BoardService 객체생성
+			BoardService boardService=new BoardService();
+			// insertBoard(boardDTO 주소값) 호출
+			boardService.insertBoard(boardDTO);
+			
+			// notice.bo 주소가 바뀌면서 이동
+			response.sendRedirect("notice.bo");
 		}else if(path.equals("/notice.bo")){
-			//center/notice.jsp 이동
-			RequestDispatcher dispatcher=request.getRequestDispatcher("/center/notice.jsp");
+			// 글목록 데이터 가져오기
+//			http://localhost:8080/FunWeb2/notice.bo
+//			http://localhost:8080/FunWeb2/notice.bo?pageNum=2
+			int pageSize=10;
+			String pageNum=request.getParameter("pageNum");
+			if(pageNum==null){
+		 		pageNum="1";
+			}
+			int currentPage=Integer.parseInt(pageNum);
+			int startRow =(currentPage-1)*pageSize+1; 
+			
+			BoardService boardService=new BoardService();
+			List<BoardDTO> boardList=boardService.getBoardList(startRow, pageSize);
+			
+			//페이징 처리
+			// 게시판 글개수
+			// 리턴할형int  getBoardCount() 메서드 정의  => 호출
+			int count=boardService.getBoardCount();
+			int pageBlock=10;
+			int startPage=(currentPage-1)/pageBlock*pageBlock+1;
+			int endPage=startPage+pageBlock-1;
+			int pageCount= count/pageSize+ (count%pageSize==0?0:1);
+			if(endPage > pageCount){
+		 		endPage=pageCount;
+			}
+			
+			//request에 저장 
+			request.setAttribute("boardList", boardList);
+			// startPage  pageBlock  endPage currentPage  pageCount
+			request.setAttribute("startPage", startPage);
+			request.setAttribute("pageBlock", pageBlock);
+			request.setAttribute("endPage", endPage);
+			request.setAttribute("currentPage", currentPage);
+			request.setAttribute("pageCount", pageCount);
+			
+			// center/notice.jsp 이동
+			RequestDispatcher dispatcher=request.getRequestDispatcher("center/notice.jsp");
+			dispatcher.forward(request, response);
+		}else if(path.equals("/content.bo")) {
+			//num 파라미터 가져오기
+			
+			// BoardService  객체 생성, getBoard() 메서드 호출
+			
+			// request 데이터 저장
+			
+			
+			RequestDispatcher dispatcher=request.getRequestDispatcher("center/content.jsp");
 			dispatcher.forward(request, response);
 		}
 	}
 	
-	
 	@Override
-	protected void doGet(HttpServletRequest requset, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("BoardController doGet() ");
-		doPro(requset,response);
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("BoardController doGet()");
+		doPro(request, response);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("BoardController doPost() ");
-		doPro(request,response);
-		
+		System.out.println("BoardController doPost()");
+		doPro(request, response);
 	}
-	
-	
-	
-	
-	
-	
+
 }
