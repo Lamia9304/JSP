@@ -1,3 +1,4 @@
+<%@page import="com.itwillbs.domain.BoardDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -5,8 +6,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<link href="../css/default.css" rel="stylesheet" type="text/css">
-<link href="../css/subpage.css" rel="stylesheet" type="text/css">
+<link href="./css/default.css" rel="stylesheet" type="text/css">
+<link href="./css/subpage.css" rel="stylesheet" type="text/css">
 <!--[if lt IE 9]>
 <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/IE9.js" type="text/javascript"></script>
 <script src="http://ie7-js.googlecode.com/svn/version/2.1(beta4)/ie7-squish.js" type="text/javascript"></script>
@@ -59,16 +60,21 @@
 // // 리턴할형 BoardDTO  getBoard(int num)메서드 정의 
 // // BoardDTO boardDTO = getBoard(num) 메서드 호출
 // BoardDTO boardDTO=boardDAO.getBoard(num);
+
+BoardDTO boardDTO=(BoardDTO)request.getAttribute("boardDTO");
+
 %>
+
+
 <article>
 <h1>Notice Content</h1>
 <table id="notice">
-<tr><td>글번호</td><td><%//=boardDTO.getNum() %></td>
-    <td>등록일</td><td><%//=boardDTO.getDate() %></td></tr>
-<tr><td>글쓴이</td><td><%//=boardDTO.getName() %></td>
-    <td>조회수</td><td><%//=boardDTO.getReadcount() %></td></tr>
-<tr><td>글제목</td><td colspan="3"><%//=boardDTO.getSubject() %></td></tr>
-<tr><td>글내용</td><td colspan="3"><%//=boardDTO.getContent() %></td></tr>
+<tr><td>글번호</td><td><%=boardDTO.getNum() %></td>
+    <td>등록일</td><td><%=boardDTO.getDate() %></td></tr>
+<tr><td>글쓴이</td><td><%=boardDTO.getName() %></td>
+    <td>조회수</td><td><%=boardDTO.getReadcount() %></td></tr>
+<tr><td>글제목</td><td colspan="3"><%=boardDTO.getSubject() %></td></tr>
+<tr><td>글내용</td><td colspan="3"><%=boardDTO.getContent() %></td></tr>
 </table>
 <div id="table_search">
 <%
@@ -80,13 +86,13 @@ String id=(String)session.getAttribute("id");
 	// 로그인 글쓴이 비교
 // 	if(id.equals(boardDTO.getName())){
 		%>
-<input type="button" value="글수정" class="btn" onclick="location.href='update.jsp?num=<%//=boardDTO.getNum()%>'"/>
-<input type="button" value="글삭제" class="btn" onclick="location.href='delete.jsp?num=<%//=boardDTO.getNum()%>'"/>		
+<input type="button" value="글수정" class="btn" onclick="location.href='update.bo?num=<%=boardDTO.getNum()%>'"/>
+<input type="button" value="글삭제" class="btn" onclick="location.href='delete.bo?num=<%=boardDTO.getNum()%>'"/>		
 		<%
 // 	}
 // }
 %>
-<input type="button" value="글목록" class="btn" onclick="location.href='notice.jsp'"/>
+<input type="button" value="글목록" class="btn" onclick="location.href='notice.bo'"/>
 </div>
 <div class="clear"></div>
 </article>

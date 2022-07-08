@@ -10,6 +10,8 @@ import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
+import member.MemberDTO;
+
 public class BoardDAO {
   public Connection getConnection() throws Exception {
     Context init = new InitialContext();
@@ -101,6 +103,53 @@ public class BoardDAO {
     return boardList;
   }
   
+  
+  public List<BoardDTO> getBoardList() {
+	  List<BoardDTO> boardList = new ArrayList<BoardDTO>();
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	  
+	    try {
+	      con = getConnection();
+	      String sql = "select * from board";
+	      pstmt = con.prepareStatement(sql);
+	      rs = pstmt.executeQuery();
+	      while (rs.next()) {
+	        BoardDTO boardDTO = new BoardDTO();
+	        boardDTO.setNum(rs.getInt("num"));
+	        boardDTO.setPass(rs.getString("pass"));
+	        boardDTO.setName(rs.getString("name"));
+	        boardDTO.setSubject(rs.getString("subject"));
+	        boardDTO.setContent(rs.getString("content"));
+	        boardDTO.setReadcount(rs.getInt("readcount"));
+	        boardDTO.setDate(rs.getTimestamp("date"));
+	        boardDTO.setFile(rs.getString("file"));
+	        boardList.add(boardDTO);
+	      } 
+	    } catch (Exception e) {
+	   
+	      e.printStackTrace();
+	    } finally {
+	      if (rs != null)
+	        try {
+	          rs.close();
+	        } catch (Exception exception) {} 
+	      if (pstmt != null)
+	        try {
+	          pstmt.close();
+	        } catch (Exception exception) {} 
+	      if (con != null)
+	        try {
+	          con.close();
+	        } catch (Exception exception) {} 
+	    } 
+	    return boardList;
+	  }
+  
+  
+  
+  
   public BoardDTO getBoard(int num) {
     BoardDTO boardDTO = null;
     Connection con = null;
@@ -143,7 +192,46 @@ public class BoardDAO {
   }
   
   
-  
+  public BoardDTO getBoard() {
+	    BoardDTO boardDTO = null;
+	    Connection con = null;
+	    PreparedStatement pstmt = null;
+	    ResultSet rs = null;
+	    try {
+	      con = getConnection();
+	      String sql = "select * from board";
+	      pstmt = con.prepareStatement(sql);
+	      rs = pstmt.executeQuery();
+	      if (rs.next()) {
+	        boardDTO = new BoardDTO();
+	        boardDTO.setNum(rs.getInt("num"));
+	        boardDTO.setPass(rs.getString("pass"));
+	        boardDTO.setName(rs.getString("name"));
+	        boardDTO.setSubject(rs.getString("subject"));
+	        boardDTO.setContent(rs.getString("content"));
+	        boardDTO.setReadcount(rs.getInt("readcount"));
+	        boardDTO.setDate(rs.getTimestamp("date"));
+	        boardDTO.setFile(rs.getString("file"));
+	      } 
+	    } catch (Exception e) {
+	      e.printStackTrace();
+	    } finally {
+	      if (rs != null)
+	        try {
+	          rs.close();
+	        } catch (Exception exception) {} 
+	      if (pstmt != null)
+	        try {
+	          pstmt.close();
+	        } catch (Exception exception) {} 
+	      if (con != null)
+	        try {
+	          con.close();
+	        } catch (Exception exception) {} 
+	    } 
+	    return boardDTO;
+	  }
+	  
   
   
   
@@ -383,5 +471,9 @@ public class BoardDAO {
       e.printStackTrace();
     } 
     return list;
+  }
+  
+  public void getID(){
+	  
   }
 }

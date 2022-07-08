@@ -112,15 +112,89 @@ public class BoardController extends HttpServlet{
 			RequestDispatcher dispatcher=request.getRequestDispatcher("center/notice.jsp");
 			dispatcher.forward(request, response);
 		}else if(path.equals("/content.bo")) {
-			//num 파라미터 가져오기
-			
-			// BoardService  객체 생성, getBoard() 메서드 호출
-			
+			// http://localhost:8080/FunWeb2/content.bo?num=15
+			// num 파라미처 가져오기
+			int num=Integer.parseInt(request.getParameter("num"));
+			// BoardService 객체생성, getBoard() 메서드호출
+			BoardService boardService=new BoardService();
+			BoardDTO boardDTO=boardService.getBoard(num);
 			// request 데이터 저장
-			
-			
+			request.setAttribute("boardDTO", boardDTO);
+			// center/content.jsp 이동
 			RequestDispatcher dispatcher=request.getRequestDispatcher("center/content.jsp");
 			dispatcher.forward(request, response);
+		}else if(path.equals("/update.bo")) {
+			// http://localhost:8080/FunWeb2/update.bo?num=15
+			// num 파라미처 가져오기
+			
+			int num=Integer.parseInt(request.getParameter("num"));
+			// BoardService 객체생성, getBoard() 메서드호출
+			
+			BoardService boardService=new BoardService();
+			BoardDTO boardDTO=boardService.getBoard(num);
+			// request 데이터 저장
+			
+			request.setAttribute("boardDTO", boardDTO);
+			
+			
+			// center/update.jsp 이동
+			
+			RequestDispatcher dispatcher=request.getRequestDispatcher("center/update.jsp");
+			dispatcher.forward(request, response);
+		}else if(path.equals("/updatePro.bo")) {
+			
+			
+			// request 한글처리
+			
+			request.setCharacterEncoding("utf-8");
+			
+			
+			// request 파라미터 값 가져오기
+			
+			
+			int num=Integer.parseInt(request.getParameter("num"));
+			String name=request.getParameter("name");
+			String subject=request.getParameter("subject");
+			String content=request.getParameter("content");
+			
+			// BoardDTO 객체생성
+			BoardDTO boardDTO=new BoardDTO();
+			// 멤버변수 파라미터값 저장
+			
+			boardDTO.setNum(num);
+			boardDTO.setName(name);
+			boardDTO.setSubject(subject);
+			boardDTO.setContent(content);
+			
+			// BoardService 객체생성
+			
+			BoardService boardService=new BoardService();
+			
+			// updateBoard() 메서드 호출
+			
+			boardService.updateBoard(boardDTO);
+			
+			// notice.bo 주소가 변경되면서 이동
+			
+			response.sendRedirect("notice.bo");
+		}else if(path.equals("/delete.bo")) {
+			
+		
+			
+			
+			// http://localhost:8080/FunWeb2/delete.bo?num=15
+			// num 파라미처 가져오기
+			
+			int num=Integer.parseInt(request.getParameter("num"));
+			
+			// BoardService 객체생성
+			BoardService boardService=new BoardService();
+			
+			// getBoard() 메서드호출
+			
+			boardService.deleteBoard(num);
+			
+			response.sendRedirect("notice.bo");
 		}
 	}
 	
